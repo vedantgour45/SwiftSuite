@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --border: #d1d5db;
+  --text: #000000;
+  --text-muted: #4b5563;
+  --accent: #000000;
+  --accent-hover: #1f2937;
+}
+
+.dark {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --border: #334155;
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent: #818cf8;
+  --accent-hover: #a5b4fc;
+}
+
+body {
+  @apply transition-colors duration-300;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.main {
+  width: 100vw;
+  min-height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  padding: 120px 24px 160px 24px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.main:after {
+  content: "";
+  background-image: url("/src/assets/grid.svg");
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  opacity: 0.4;
+  filter: invert(1);
+}
+
+.dark .main:after {
+  filter: invert(0);
+  opacity: 0.05;
+}
+
+.gradient {
+  z-index: 2;
+  width: 100%;
+  max-width: 640px;
+  background-image: radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 1) 0px, transparent 0%),
+    radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 1) 0px, transparent 50%),
+    radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 1) 0px, transparent 50%),
+    radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 1) 0px, transparent 50%),
+    radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%),
+    radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 1) 0px, transparent 50%);
+  position: absolute;
+  content: "";
+  height: 100%;
+  filter: blur(100px) saturate(150%);
+  top: 80px;
+  opacity: 0.15;
+}
+
+/* UI Components */
+
+.app_container {
+  @apply relative z-10 flex flex-col items-center w-full max-w-7xl mx-auto px-4 sm:px-8 pb-8;
+}
+
+.glass_card {
+  @apply rounded-2xl border backdrop-blur-md shadow-md transition-all duration-300;
+  background-color: color-mix(in srgb, var(--surface) 70%, transparent);
+  border-color: var(--border);
+}
+
+.glass_card:hover {
+  @apply border-black dark:border-indigo-400;
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.1);
+}
+
+.head_text {
+  @apply mt-10 text-5xl font-extrabold leading-[1.15] sm:text-7xl text-center;
+  color: var(--text);
+}
+
+.orange_gradient {
+  @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
+}
+
+.desc {
+  @apply mt-6 text-lg text-center max-w-2xl mx-auto;
+  color: var(--text-muted);
+}
+
+/* Tabs */
+.tabs_wrapper {
+  @apply flex flex-wrap items-center justify-center gap-2 mt-12 w-full max-w-5xl mx-auto;
+}
+
+.tab_btn {
+  @apply px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all border;
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+
+.tab_btn:hover {
+  @apply border-black dark:border-white;
+  color: var(--text);
+}
+
+.tab_btn.active {
+  @apply bg-black border-black text-white shadow-lg;
+}
+
+.dark .tab_btn.active {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  @apply shadow-lg shadow-indigo-500/30;
+}
+
+/* Inputs & Buttons */
+.url_input,
+.select_input {
+  @apply flex-1 rounded-xl border-2 bg-transparent py-3 px-5 text-sm outline-none transition-all w-full;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.select_input {
+  @apply pl-4 pr-10 appearance-none cursor-pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+}
+
+.url_input:focus,
+.select_input:focus {
+  @apply border-black dark:border-indigo-500 ring-4 ring-black/5 dark:ring-indigo-500/10;
+}
+
+select option {
+  @apply bg-white dark:bg-slate-900 text-black dark:text-white;
+}
+
+.btn_primary {
+  @apply px-5 py-3 rounded-xl bg-black dark:bg-indigo-600 text-white text-sm font-bold transition-all hover:bg-gray-800 dark:hover:bg-indigo-700 active:scale-95 disabled:opacity-50 border border-transparent;
+}
+
+.icon_btn {
+  @apply p-1 rounded-lg border-2 transition-all hover:bg-black/5 dark:hover:bg-white/10;
+  border-color: var(--border);
+}
+
+/* Utils */
+.blue_gradient {
+  @apply bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent font-black;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media screen and (max-width: 640px) {
+  .head_text {
+    @apply text-4xl;
+  }
+}
